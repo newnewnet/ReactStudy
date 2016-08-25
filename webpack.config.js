@@ -15,7 +15,7 @@ module.exports = {
    // เราไม่ต้องการ inline ที่จะแอบทะลึ่งไป reload เพจของเรา
    // เราจึงบอกว่าใช้ hot เท่านั้นนะ
    'webpack/hot/only-dev-server',
-   './src/theme/elements.scss',
+
    './src/index.js'
   ],
   output: {
@@ -61,7 +61,7 @@ module.exports = {
           {
             loader: 'sass-loader',
             query: {
-              outputStyle: 'expanded',
+              // outputStyle: 'expanded',
               sourceMap: true
             }
           },

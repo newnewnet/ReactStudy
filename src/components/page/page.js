@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import fetch from 'isomorphic-fetch';
+import Loading from '../loading.js'
 import { Link} from 'react-router';
 
 class Pages extends Component {
@@ -10,7 +11,7 @@ class Pages extends Component {
    }
 
   render() {
-    // const { pages, onReloadPages } = this.props
+  
     return (
       <div>
         <button
@@ -18,25 +19,27 @@ class Pages extends Component {
          onClick={() => this.props.onReloadPages()}>
          Reload Pages
        </button>
-       <table className='table'>
-       <thead>
-           <tr>
-             <th>ID</th>
-             <th>Title</th>
-             <th>Action</th>
-           </tr>
-         </thead>
-         <tbody>
-           {
-            this.props.pages.map((page) => (
-              <Page
-               key={page.id}
-               id={page.id}
-               title={page.title}/>
-             ))
-          }
-         </tbody>
-       </table>
+       <Loading data={this.props.pages}>
+         <table className='table'>
+         <thead>
+             <tr>
+               <th>ID</th>
+               <th>Title</th>
+               <th>Action</th>
+             </tr>
+           </thead>
+           <tbody>
+             {
+              this.props.pages.map((page) => (
+                <Page
+                 key={page.id}
+                 id={page.id}
+                 title={page.title}/>
+               ))
+            }
+           </tbody>
+         </table>
+        </Loading>
       </div>
 
     )

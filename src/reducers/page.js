@@ -10,13 +10,16 @@ const initialState = []
 // เริ่มต้นนั้นเราไม่มีหน้าวิกิอยู่ในระบบเลย
 export default (state = initialState, action) => {
   switch(action.type) {
-    // เมื่อไหร่ก็ตามที่ action มีชนิดเป็น RECEIVE_PAGES
-    // ให้แกะดูข้อมูล pages จากก้อนอ็อบเจ็กต์ action
-    // pages นี้คือหน้าวิกิทั้งหมด
-    // เราคืนค้ากลับออกไปจาก reducer เป็นวิกิทั้งหมดที่ได้จากอ็อบเจ็กต์ action
-    case 'RECEIVE_PAGES':
-      return action.pages
-    // ในกรณีที่ไม่มี action ตรงกลับที่ระบุให้คืนค่ากลับออกจาก reducer เป็น state ตัวเดิม
+    case 'LOAD_PAGES_REQUEST':
+    // จากเดิมเป็น action.pages
+    // แต่ตอนนี้ก้อนอ็อบเจ็กต์ที่เข้ามาอยู่ในชื่อ payload แล้ว
+      return []
+    case 'LOAD_PAGES_SUCCESS':
+      // จากเดิมเป็น action.pages
+      // แต่ตอนนี้ก้อนอ็อบเจ็กต์ที่เข้ามาอยู่ในชื่อ payload แล้ว
+      return action.payload
+    case 'LOAD_PAGE_SUCCESS':
+      return [action.payload]
     default:
       return state
   }

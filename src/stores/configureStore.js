@@ -1,11 +1,16 @@
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import { apiMiddleware } from 'redux-api-middleware'
 import rootReducer from '../reducers'
+import createLogger from 'redux-logger'
 
 export default () => {
-  // วิธีการสร้าง store คือการเรียก createStore
-  // โดยผ่าน reducer ตัวบนสุดหรือตัวที่เรารวม reducer ทุกตัวเข้าด้วยกัน
-  // เราจะได้ store กลับออกมาเป็นผลลัพธ์
-  const store = createStore(rootReducer)
+
+  const middlewares = [thunk, apiMiddleware]
+  const store = createStore(
+    rootReducer,
+    applyMiddleware(...middlewares)
+  )
 
 
   if (module.hot) {

@@ -1,3 +1,6 @@
+
+import styles from './theme/elements.scss'
+
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import routes from './route'

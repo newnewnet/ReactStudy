@@ -5,6 +5,7 @@ import Pages  from '../../components/page/page.js'
 import { loadPages } from '../../actions/page';
 import {connect} from 'react-redux';
 
+
  class PagesContainer extends Component {
 
   // state = {
@@ -23,10 +24,10 @@ import {connect} from 'react-redux';
     this.props.onLoadPages()
   }
 
-  shouldComponentUpdate(_nextProps, nextState) {
-    // return JSON.stringify(this.state.pages) !== JSON.stringify(nextState.pages) ;
-    return this.props.pages !== _nextProps.pages;
-  }
+  // shouldComponentUpdate(_nextProps, nextState) {
+  //   // return JSON.stringify(this.state.pages) !== JSON.stringify(nextState.pages) ;
+  //   return this.props.pages !== _nextProps.pages;
+  // }
 
 
   componentWillUpdate(){
@@ -35,38 +36,36 @@ import {connect} from 'react-redux';
 
   // PagesContainer เป็น Container Component
   // มันมีสมองเลยรู้จักวิธีการดึงข้อมูลจากเซิร์ฟเวอร์
-  componentDidMount() {
-    // this.onReloadPages();
+   componentWillMount() {
+    this.onReloadPages();
   }
 
+  // componentDidMount() {
+  //   this.onReloadPages();
+  // }
+
   render() {
-    // เรียกใช้ Presentational Component
+    console.log(this.props.pages)
     return <Pages pages={this.props.pages} onReloadPages={this.onReloadPages}/>
   }
 }
 
 const mapStateToProps = (state) => ({
-  // เมื่อ state ใน store มีการเปลี่ยนแปลง
-  // เราไม่สนใจทุก state
-  // เราสนใจแค่ state ของ pages
-  // โดยทำการติดตั้ง pages ให้เป็น props
-  // เราใช้ชื่อ key ของ object เป็นอะไร
-  // key ตัวนั้นจะเป็นชื่อที่เรียกได้จาก props ของคอมโพแนนท์
   pages: state.pages
 })
 
 // ส่ง dispatch ของ store เข้าไปให้เรียกใช้
 // อยาก dispatch อะไรไปให้ reducer ก็สอยเอาตามปรารถนาเลยครับ
-const mapDispatchToProps = (dispatch) => ({
-  onLoadPages() {
-    // เมื่อเรียก this.props.onLoadPages
-    // loadPages ที่เป็น action creator จะโดนปลุกขึ้นมาทำงาน
-    // จากนั้นจะ return ก้อนอ็อบเจ็กต์ของ action
-    // ส่งเข้าไปใน dispatch
-    // store.dispatch จะไปปลุก reducer ให้มาจัดการกับ action ที่เกี่ยวข้อง
-    dispatch(loadPages())
-  }
-})
+// const mapDispatchToProps = (dispatch) => ({
+//   onLoadPages() {
+//     // เมื่อเรียก this.props.onLoadPages
+//     // loadPages ที่เป็น action creator จะโดนปลุกขึ้นมาทำงาน
+//     // จากนั้นจะ return ก้อนอ็อบเจ็กต์ของ action
+//     // ส่งเข้าไปใน dispatch
+//     // store.dispatch จะไปปลุก reducer ให้มาจัดการกับ action ที่เกี่ยวข้อง
+//     dispatch(loadPages())
+//   }
+// })
 
 // วิธีใช้ connect สังเกตนะครับส่งสองฟังก์ชันคือ
 // mapStateToProps และ mapDispatchToProps เข้าไปใน connect
@@ -76,7 +75,7 @@ const mapDispatchToProps = (dispatch) => ({
 // มันคือ Higher-order function นั่นเอง
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {onLoadPages: loadPages}
 )(PagesContainer)
 
 // export default PagesContainer;
